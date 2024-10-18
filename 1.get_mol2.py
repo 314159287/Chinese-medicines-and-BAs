@@ -1,4 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,15 +11,26 @@ import re
 
 
 # 初始化
-driver = webdriver.Edge()
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('start-maximized')
+chrome_options.add_argument('--disable-extensions')
+chrome_options.add_argument('--disable-browser-side-navigation')
+chrome_options.add_argument('enable-automation')
+chrome_options.add_argument('--disable-infobars')
+chrome_options.add_argument('enable-features=NetworkServiceInProcess')
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(chrome_options, service)
 
 # 读取URL
-with open('C:\\Users\\pc\\Desktop\\address.txt', 'r') as file:
+with open('./link_db', 'r') as file:
     urls = file.read().splitlines()
 
 # 保存的文件夹
-output_directory = 'C:\\Users\\pc\\Desktop\\mol2'
-
+output_directory = './test'
+os.makedirs(output_directory, exist_ok=True)
 
 def find_mol2_links():
     # XPath查找

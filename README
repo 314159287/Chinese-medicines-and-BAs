@@ -1,0 +1,21 @@
+### Step 1. [python程序调用selenium包，在TCMSP数据库批量下载所有中药的分子信息文件.mol2]
+python3 get_mol2_address.py
+
+### Step 2. [用open tabel将所有分子信息文件转换成smiles号文件.smi]
+
+
+
+1.python程序调用selenium包，在TCMSP数据库批量下载所有中药的分子信息文件.mol2
+   在Drugbank和Pubchem数据库批量下载胆汁酸的分子信息文件.mol和.sdf
+
+2.用open tabel将所有分子信息文件转换成smiles号文件.smi
+
+3.用ADMETlab 3.0将所有smiles号转换成ADMET参数，使用excel的工具合并所有ADMET数据
+
+4.用R将ADMET数据可视化
+
+5.python脚本调用rdkit包，将smiles号转换成分子指纹文件.fpt
+
+6.python程序调用rdkit包，用分子指纹.fpt文件计算每一个药物分子之间的tanimoto系数
+
+
