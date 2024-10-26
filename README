@@ -18,4 +18,6 @@ python3 get_mol2_address.py
 
 6.python程序调用rdkit包，用分子指纹.fpt文件计算每一个药物分子之间的tanimoto系数 (6.molecule_tanimmoto.py)
 
+7.python程序获取TCMSP数据库上药物分子的数据 (7.mol_data.py)
+
 
