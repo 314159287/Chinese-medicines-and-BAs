@@ -192,4 +192,4 @@ print("Download process completed.")
 driver.quit()
 
 
-# .\get_mol2_2.py 柴胡,黄芩,白芍,半夏,枳实,大黄,大枣,生姜,枳壳,甘草,陈皮,川芎,香附,人参,茵陈,栀子 C:\\Users\\pc\\Desktop\\mol2 C:\\Users\\pc\\Desktop\\download
+# .\1.get_mol2.py 柴胡,黄芩,白芍,半夏,枳实,大黄,大枣,生姜,枳壳,甘草,陈皮,川芎,香附,人参,茵陈,栀子 C:\\Users\\pc\\Desktop\\mol2 C:\\Users\\pc\\Desktop\\download
