@@ -10,7 +10,7 @@ import time
 import os
 import sys
 import pandas as pd
-
+import csv
 
 # 在chrome加载
 chrome_options = Options()
@@ -40,19 +40,20 @@ search_terms = sys.argv[1].split(',')
 output_directory = sys.argv[2]
 
 # 初始化
-processed_first_column = set()
-df = pd.DataFrame()  # 直接创建一个空的DataFrame
+processed_first_column = set() #查重用
+df = pd.DataFrame()  # 储存数据
+column_names = []  # 存储列名
 
 
 # 关键词搜索
-for search_term in search_terms:
-    search_term = search_term.strip()  # 移除空白字符
+for index, search_term in enumerate(search_terms):
+    search_term = search_term.strip()
     print(f"\nProcessing search term: {search_term}")
 
     driver.get("https://old.tcmsp-e.com/tcmsp.php")  # 定位主页
 
     # 等待搜索框加载
-    search_box = WebDriverWait(driver, 20).until(
+    search_box = WebDriverWait(driver, 60).until(
         EC.presence_of_element_located((By.XPATH, "/html/body/div[2]/div[2]/div[1]/form/div/input[1]"))
     )
 
@@ -64,7 +65,7 @@ for search_term in search_terms:
     search_box.send_keys(Keys.RETURN)
 
     # 等待结果加载
-    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
+    WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
 
     try:
         first_result_link = WebDriverWait(driver, 10).until(
@@ -76,22 +77,32 @@ for search_term in search_terms:
         print("Successfully clicked on the first search result.")
 
         # 跳转新网址
-        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+        WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
         print("Navigated to the new page.")
     except Exception as e:
         print(f"Error clicking on the first search result: {e}")
 
 
+    # 捕获列名
+    if index == 0:
+        try:
+            for i in range(1, 13):  # 12列
+                xpath = f"/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[1]/div/table/thead/tr/th[{i}]/a[2]"
+                element = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.XPATH, xpath))
+                )
+                column_names.append(element.text)
+        except Exception as e:
+            print(f"Error getting column names: {e}")
+            column_names = [f"Column {i}" for i in range(1, 13)]
+
+
     def extract_row_data(row_number):
         # 捕获单行数据
         data = []
-        for col in range(1, 14):  # 13列
+        for col in range(1, 13):
             try:
-                if col == 13:  # 最后一列是特殊xpath
-                    xpath = f"/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr[{row_number}]/td[{col}]/a/span"
-                else:
-                    xpath = f"/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr[{row_number}]/td[{col}]"
-
+                xpath = f"/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr[{row_number}]/td[{col}]"
                 element = driver.find_element(By.XPATH, xpath)
                 data.append(element.text)
             except:
@@ -175,15 +186,19 @@ for search_term in search_terms:
             os.makedirs(output_dir, exist_ok=True)
 
         # 写入
-        df.to_csv(output_directory, index=False, encoding='utf-8')
+        with open(output_directory, 'w', newline='', encoding='utf-8-sig') as f:
+            writer = csv.writer(f)
+            writer.writerow(column_names)
+            writer.writerows(df.values)
         print(f"Successfully saved data to {output_directory}")
     except Exception as e:
         print(f"Error saving CSV file: {e}")
-        # 保存到当前目录
+        # 另存到当前目录
         current_dir = os.path.dirname(os.path.abspath(__file__))
         alternative_path = os.path.join(current_dir, 'output.csv')
         print(f"Trying to save to alternative path: {alternative_path}")
-        df.to_csv(alternative_path, index=False, encoding='utf-8')
+        df = pd.DataFrame(df.values, columns=column_names)
+        df.to_csv(alternative_path, index=False, encoding='utf-8-sig')
 
 driver.quit()
 
