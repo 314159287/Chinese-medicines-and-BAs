@@ -33,16 +33,51 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # 检查参数数量
 if len(sys.argv) != 3:
-    print("Num error,Example: python get_mol2_2.py term1,term2,term3 output_pathway")
+    print("Num error,Example: python 7.TCMSP_herb_data.py term1,term2,term3 output_pathway")
     sys.exit(1)
 
 search_terms = sys.argv[1].split(',')
 output_directory = sys.argv[2]
 
+
 # 初始化
 processed_first_column = set() #查重用
 df = pd.DataFrame()  # 储存数据
 column_names = []  # 存储列名
+
+
+def extract_row_data(row_number): # 捕获单行数据
+    data = []
+    for col in range(1, 13):
+        try:
+            xpath = f"/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr[{row_number}]/td[{col}]"
+            element = driver.find_element(By.XPATH, xpath)
+            data.append(element.text)
+        except:
+            data.append("")
+    return data
+
+
+def process_page(): # 捕获所有行
+    new_data = []
+    row = 1
+    while True:
+        try:
+            # 获取第一列的数据：分子名称
+            first_col_xpath = f"/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr[{row}]/td[1]"
+            first_col_element = driver.find_element(By.XPATH, first_col_xpath)
+            first_col_value = first_col_element.text
+
+            # 以第一列的数据为依据，查重
+            if first_col_value not in processed_first_column:
+                row_data = extract_row_data(row)  # 捕获目前行的数据
+                new_data.append(row_data)
+                processed_first_column.add(first_col_value)
+
+            row += 1 # 迭代
+        except:
+            break
+    return new_data
 
 
 # 关键词搜索
@@ -95,42 +130,6 @@ for index, search_term in enumerate(search_terms):
         except Exception as e:
             print(f"Error getting column names: {e}")
             column_names = [f"Column {i}" for i in range(1, 13)]
-
-
-    def extract_row_data(row_number):
-        # 捕获单行数据
-        data = []
-        for col in range(1, 13):
-            try:
-                xpath = f"/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr[{row_number}]/td[{col}]"
-                element = driver.find_element(By.XPATH, xpath)
-                data.append(element.text)
-            except:
-                data.append("")
-        return data
-
-
-    def process_page():
-        # 捕获所有行
-        new_data = []
-        row = 1
-        while True:
-            try:
-                # 获取第一列的数据：分子名称
-                first_col_xpath = f"/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[2]/table/tbody/tr[{row}]/td[1]"
-                first_col_element = driver.find_element(By.XPATH, first_col_xpath)
-                first_col_value = first_col_element.text
-
-                # 以第一列的数据为依据，查重
-                if first_col_value not in processed_first_column:
-                    row_data = extract_row_data(row) # 捕获目前行的数据
-                    new_data.append(row_data)
-                    processed_first_column.add(first_col_value)
-
-                row += 1
-            except:
-                break
-        return new_data
 
 
     # 判断翻页
@@ -203,5 +202,5 @@ for index, search_term in enumerate(search_terms):
 driver.quit()
 
 
-# python 7.molecule_data.py 柴胡,黄芩,白芍,半夏,枳实,大黄,大枣,生姜,枳壳,甘草,陈皮,川芎,香附,人参,茵陈,栀子 C:\\Users\\pc\\Desktop\\mol_data.csv
+# python 7.TCMSP_herb_data.py 柴胡,黄芩,白芍,半夏,枳实,大黄,大枣,生姜,枳壳,甘草,陈皮,川芎,香附,人参,茵陈,栀子 C:\\Users\\pc\\Desktop\\TCMSP_herb_data.csv
 
