@@ -101,7 +101,7 @@ for index, search_term in enumerate(search_terms):
     # 到新窗口
     all_windows = driver.window_handles
     driver.switch_to.window(all_windows[-1])
-    driver.execute_script("return document.readyState")
+    driver.execute_script("return document.readyState") # 确定加载完毕
     WebDriverWait(driver, 60).until(EC.visibility_of_element_located((By.XPATH, "//center[text()='Matched TCM-ID Records']")))
     print("Navigated to the first new page.")
 
@@ -115,7 +115,7 @@ for index, search_term in enumerate(search_terms):
         # 找到所有行
         rows = table.find_elements(By.TAG_NAME, "tr")
 
-        # 遍历行找到匹配的
+        # 遍历行
         matching_row = None
         for row in rows:
             cells = row.find_elements(By.TAG_NAME, "td")
