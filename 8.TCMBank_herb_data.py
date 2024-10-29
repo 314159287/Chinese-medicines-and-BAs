@@ -15,7 +15,7 @@ import csv
 
 # 在chrome加载
 chrome_options = Options()
-# chrome_options.add_argument('--headless')
+chrome_options.add_argument('--headless')
 # chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
@@ -182,6 +182,7 @@ for index, search_term in enumerate(search_terms):
 
 driver.quit()
 
-
+# 只能使用中文检索
 # python 8.TCMBank_herb_data.py 柴胡,黄芩,白芍,半夏,枳实,大黄,大枣,生姜,枳壳,甘草,陈皮,川芎,香附,人参,茵陈,栀子 C:\\Users\\pc\\Desktop\\TCMBank_herb_data.csv
+
 
