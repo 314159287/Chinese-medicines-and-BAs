@@ -14,7 +14,7 @@ import csv
 
 # 在chrome加载
 chrome_options = Options()
-# chrome_options.add_argument('--headless')
+chrome_options.add_argument('--headless')
 # chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
@@ -118,6 +118,22 @@ for index, search_term in enumerate(search_terms):
         print(f"Error clicking on the first search result: {e}")
 
 
+    # 等待加载
+    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
+
+
+    # 获取总页数
+    try:
+        last_page_element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, "/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[3]/a[4]"))
+        )
+        total_pages = int(last_page_element.get_attribute('data-page'))
+    except:
+        print("Unable to find total pages, assuming there's only one page")
+        total_pages = 1
+
+
     # 捕获列名
     if index == 0:
         try:
@@ -137,26 +153,10 @@ for index, search_term in enumerate(search_terms):
     all_data = []
 
     while True:
-        # 等待加载
-        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
-
         # 获取当前页面所有数据
         page_data = process_page()
         all_data.extend(page_data)
 
-        # 获取总页数
-        try:
-            last_page_element = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, "/html/body/div[2]/div[2]/div[2]/div[2]/div[1]/div/div[3]/a[4]"))
-            )
-            total_pages = int(last_page_element.get_attribute('data-page'))
-        except:
-            print("Unable to find total pages, assuming there's only one page")
-            total_pages = 1
-
-        if current_page >= total_pages:
-            break
 
         # 检查有没有下一页
         try:
@@ -165,8 +165,11 @@ for index, search_term in enumerate(search_terms):
             )
             next_button.click()
             current_page += 1
-            time.sleep(2)
+            time.sleep(1)
         except:
+            break
+
+        if current_page >= total_pages:
             break
 
     # 将新数据添加到DataFrame
@@ -176,6 +179,7 @@ for index, search_term in enumerate(search_terms):
             df = new_df
         else:
             df = pd.concat([df, new_df], ignore_index=True)
+
 
     # 写入csv
     try:
