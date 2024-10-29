@@ -1,7 +1,7 @@
 1.python程序调用selenium包，在TCMSP数据库批量下载所有中药的分子信息文件.mol2
    在Drugbank和Pubchem数据库批量下载胆汁酸的分子信息文件.mol和.sdf (1.get_mol2.py)
 
-2.用open babel将所有分子信息文件转换成smiles号文件.smi (2.mol2_to_smi.py)
+2.python脚本调用rdkit包，将所有分子信息文件转换成smiles号文件.smi (2.mol2_to_smi.py)
 
 3.用ADMETlab 3.0将所有smiles号转换成ADMET参数，使用excel的工具合并所有ADMET数据
 
