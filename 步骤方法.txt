@@ -15,3 +15,5 @@
 
 8.python程序获取TCMBank数据库上药物分子的数据 (8.TCMBank_herb_data.py)
 
+9.python程序获取TCM-IDk数据库上药物分子的数据 (9.TCM-ID_herb_data.py)
+
