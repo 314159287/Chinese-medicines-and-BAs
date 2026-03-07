@@ -13,7 +13,7 @@ traditional Chinese medicine formulas capable of treating hypercholesterolemia t
 
 ·SMILES codes are also used to generate molecular fingerprints. See File 5 for details.
 
-·Molecular fingerprints enable calculation of Tanimoto coefficients for similarity comparisons with chemical molecules in the bile acid family. See File 6 for details.
+· Molecular fingerprints were calculated using the Tanimoto coefficient for similarity comparison with chemical molecules in the bile acid family. See File 6 for details.
 
 All code was written by myself. My advisor, Professor Wang Chao, provided minor guidance and revisions. I am grateful for his advice and support.
 
@@ -32,7 +32,8 @@ All code was written by myself. My advisor, Professor Wang Chao, provided minor 
 
 ·Smiles号还用于转化成分子指纹，详见文件5。
 
-·分子指纹可计算出tanimoto系数，与胆汁酸家族化学分子进行相似性比较，详见文件6。
+·分子指纹计算出tanimoto系数，与胆汁酸家族化学分子进行相似性比较，详见文件6。
 
 所有的代码均由我本人编写，我的老师王超进行了小部分指导修改，感谢他给予的建议和支持。
+
 
