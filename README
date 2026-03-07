@@ -15,7 +15,7 @@ traditional Chinese medicine formulas capable of treating hypercholesterolemia t
 
 ·Molecular fingerprints enable calculation of Tanimoto coefficients for similarity comparisons with chemical molecules in the bile acid family. See File 6 for details.
 
-All code was written by myself. I extend my gratitude to my advisor, Professor Wang Chao, for his guidance and support.
+All code was written by myself. My advisor, Professor Wang Chao, provided minor guidance and revisions. I am grateful for his advice and support.
 
 
 这是一个python爬虫与R语言数据分析的项目。目的是在能治疗胆汁酸过多的中药方剂中，找出能与胆汁酸家族化学分子结合的分子结构。
@@ -34,4 +34,5 @@ All code was written by myself. I extend my gratitude to my advisor, Professor W
 
 ·分子指纹可计算出tanimoto系数，与胆汁酸家族化学分子进行相似性比较，详见文件6。
 
-所有的代码均由我本人编写，感谢我的老师王超给予了建议支持。
+所有的代码均由我本人编写，我的老师王超进行了小部分指导修改，感谢他给予的建议和支持。
+
