@@ -1,18 +1,37 @@
 This is a Python web scraping and R data analysis project. Its objective is to identify molecular structures within 
 traditional Chinese medicine formulas capable of treating hypercholesterolemia that can bind to chemical molecules within the bile acid family.
 
-Using web scraping techniques, I obtained the molecular structures for each drug from the TCMID/TCMBank/TCMSP databases, as detailed in File 10.
+·Using web scraping techniques, I obtained the molecular structures for each drug from the TCMID/TCMBank/TCMSP databases, as detailed in File 10.
 
-Through the TCMSP database, I batch-crawled mol files containing the structure and related information for each molecule, as detailed in Files 1, 7, 8, and 9.
+·Through the TCMSP database, I batch-crawled mol files containing the structure and related information for each molecule, as detailed in Files 1, 7, 8, and 9.
 
-The mol files were batch-converted into SMILES strings (a standardized format using ASCII characters to explicitly describe molecular structures), as detailed in File 2.
+·The mol files were batch-converted into SMILES strings (a standardized format using ASCII characters to explicitly describe molecular structures), as detailed in File 2.
 
-SMILES codes were used to batch-fetch ADMET data (Absorption, Distribution, Metabolism, Excretion, Toxicity) from the ADMETlab website via web scraping, as detailed in File 3.
+·SMILES codes were used to batch-fetch ADMET data (Absorption, Distribution, Metabolism, Excretion, Toxicity) from the ADMETlab website via web scraping, as detailed in File 3.
 
-I performed batch visualization of the obtained ADMET data using R programming, as detailed in File 4.
+·I performed batch visualization of the obtained ADMET data using R programming, as detailed in File 4.
 
-SMILES codes are also used to generate molecular fingerprints. See File 5 for details.
+·SMILES codes are also used to generate molecular fingerprints. See File 5 for details.
 
-Molecular fingerprints enable calculation of Tanimoto coefficients for similarity comparisons with chemical molecules in the bile acid family. See File 6 for details.
+·Molecular fingerprints enable calculation of Tanimoto coefficients for similarity comparisons with chemical molecules in the bile acid family. See File 6 for details.
 
 All code was written by myself. I extend my gratitude to my advisor, Professor Wang Chao, for his guidance and support.
+
+
+这是一个python爬虫与R语言数据分析的项目。目的是在能治疗胆汁酸过多的中药方剂中，找出能与胆汁酸家族化学分子结合的分子结构。
+
+·利用爬虫技术，我在TCMID/TCMBank/TCMSP数据库上得到每个药物的分子，详见文件10.
+
+·通过TMCSP数据库我批爬取到了写有每一个分子的结构和相关信息的mol文件，详见文件1、7、8、9。
+
+·把mol文件批量转化成Smiles号（一种用ASCII字符串明确描述分子结构的规范），详见文件2.
+
+·Simles号用于在ADMETlab网站通过爬虫批量获取ADMET数据（Absorption、Distribution、Metabolism、Excretion、Toxicity），详见文件3
+
+·我使用R语言对得到的ADMET进行了批量的可视化处理，详见文件4。
+
+·Smiles号还用于转化成分子指纹，详见文件5。
+
+·分子指纹可计算出tanimoto系数，与胆汁酸家族化学分子进行相似性比较，详见文件6。
+
+所有的代码均由我本人编写，感谢我的老师王超给予了建议支持。
