@@ -1,27 +1,18 @@
-### Step 1. [python程序调用selenium包，在TCMSP数据库批量下载所有中药的分子信息文件.mol2]
-python3 get_mol2_address.py
+This is a Python web scraping and R data analysis project. Its objective is to identify molecular structures within 
+traditional Chinese medicine formulas capable of treating hypercholesterolemia that can bind to chemical molecules within the bile acid family.
 
-### Step 2. [用open tabel将所有分子信息文件转换成smiles号文件.smi]
+Using web scraping techniques, I obtained the molecular structures for each drug from the TCMID/TCMBank/TCMSP databases, as detailed in File 10.
 
+Through the TCMSP database, I batch-crawled mol files containing the structure and related information for each molecule, as detailed in Files 1, 7, 8, and 9.
 
+The mol files were batch-converted into SMILES strings (a standardized format using ASCII characters to explicitly describe molecular structures), as detailed in File 2.
 
-1.python程序调用selenium包，在TCMSP数据库批量下载所有中药的分子信息文件.mol2
-   在Drugbank和Pubchem数据库批量下载胆汁酸的分子信息文件.mol和.sdf (1.get_mol2.py)
+SMILES codes were used to batch-fetch ADMET data (Absorption, Distribution, Metabolism, Excretion, Toxicity) from the ADMETlab website via web scraping, as detailed in File 3.
 
-2.python脚本调用rdkit包，将所有分子信息文件转换成smiles号文件.smi (2.mol2_to_smi.py)
+I performed batch visualization of the obtained ADMET data using R programming, as detailed in File 4.
 
-3.用ADMETlab 3.0将所有smiles号转换成ADMET参数，使用excel的工具合并所有ADMET数据
+SMILES codes are also used to generate molecular fingerprints. See File 5 for details.
 
-4.用R将ADMET数据可视化 (4.ADMET可视化.R)
+Molecular fingerprints enable calculation of Tanimoto coefficients for similarity comparisons with chemical molecules in the bile acid family. See File 6 for details.
 
-5.python脚本调用rdkit包，将smiles号转换成分子指纹文件.fpt (5.smiles_to_fpt.py)
-
-6.python程序调用rdkit包，用分子指纹.fpt文件计算每一个药物分子之间的tanimoto系数 (6.molecule_tanimmoto.py)
-
-7.python程序获取TCMSP数据库上药物分子的数据 (7.TCMSP_herb_data.py)
-
-8.python程序获取TCMBank数据库上药物分子的数据 (8.TCMBank_herb_data.py)
-
-9.python程序获取TCM-IDk数据库上药物分子的数据 (9.TCM-ID_herb_data.py)
-
-
+All code was written by myself. I extend my gratitude to my advisor, Professor Wang Chao, for his guidance and support.
