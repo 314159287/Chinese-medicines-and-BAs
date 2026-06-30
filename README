@@ -1,39 +1,31 @@
-This is a Python web scraping and R data analysis project. Its objective is to identify molecular structures within 
-traditional Chinese medicine formulas capable of treating hypercholesterolemia that can bind to chemical molecules within the bile acid family.
+本项目旨在通过 Python 爬虫与 R 语言数据分析，在治疗胆汁酸过多症的中药方剂中，筛选并识别能与胆汁酸家族分子高效结合的潜在中药活性成分。
 
-·Using web scraping techniques, I obtained the molecular structures for each drug from the TCMID/TCMBank/TCMSP databases, as detailed in File 10.
+核心技术：
 
-·Through the TCMSP database, I batch-crawled mol files containing the structure and related information for each molecule, as detailed in Files 1, 7, 8, and 9.
+    1.数据采集：编写 Python 爬虫，从 TCMID、TCMBank 及 TCMSP 数据库批量抓取目标中药分子数据及对应的 mol 结构文件。
 
-·The mol files were batch-converted into SMILES strings (a standardized format using ASCII characters to explicitly describe molecular structures), as detailed in File 2.
+    2.结构转化：利用脚本将 mol 文件批量转化为标准 SMILES 字符串，并进一步将其编码为分子指纹。
 
-·SMILES codes were used to batch-fetch ADMET data (Absorption, Distribution, Metabolism, Excretion, Toxicity) from the ADMETlab website via web scraping, as detailed in File 3.
+    3.数据挖掘 (ADMET)：基于 SMILES 号，通过爬虫在 ADMETlab 平台批量获取分子的药代动力学（ADMET）核心属性。
 
-·I performed batch visualization of the obtained ADMET data using R programming, as detailed in File 4.
+    4.相似性评价：计算分子指纹与胆汁酸分子的 Tanimoto 相似性系数，定量评估其空间结合潜力。
 
-·SMILES codes are also used to generate molecular fingerprints. See File 5 for details.
+    5.统计与可视化：使用 R 语言对批量 ADMET 数据进行清洗、统计建模与高维数据可视化呈现。
 
-· Molecular fingerprints were calculated using the Tanimoto coefficient for similarity comparison with chemical molecules in the bile acid family. See File 6 for details.
+本项目核心代码均由本人独立编写。感谢王超老师在项目进展中提供指导与建议支持。
 
-All code was written by myself. My advisor, Professor Wang Chao, provided minor guidance and revisions. I am grateful for his advice and support.
+This project aims to use Python web scraping and R-language data analysis to screen and identify potential active ingredients in traditional Chinese medicine (TCM) formulations for treating hyperbilirubinemia that can bind efficiently to molecules in the bile acid family.
 
+Core Technologies:
 
-这是一个python爬虫与R语言数据分析的项目。目的是在能治疗胆汁酸过多的中药方剂中，找出能与胆汁酸家族化学分子结合的分子结构。
+    1. Data Collection: Develop a Python web crawler to batch-extract data on target TCM molecules and their corresponding mol structure files from the TCMID, TCMBank, and TCMSP databases.
 
-·利用爬虫技术，我在TCMID/TCMBank/TCMSP数据库上得到每个药物的分子，详见文件10.
+    2. Structure Conversion: Use scripts to batch-convert mol files into standard SMILES strings and further encode them into molecular fingerprints.
 
-·通过TMCSP数据库我批爬取到了写有每一个分子的结构和相关信息的mol文件，详见文件1、7、8、9。
+    3. Data Mining (ADMET): Based on SMILES identifiers, use web crawlers to batch-retrieve core pharmacokinetic (ADMET) properties of molecules from the ADMETlab platform.
 
-·把mol文件批量转化成Smiles号（一种用ASCII字符串明确描述分子结构的规范），详见文件2.
+    4. Similarity Assessment: Calculate the Tanimoto similarity coefficient between molecular fingerprints and bile acid molecules to quantitatively evaluate their spatial binding potential.
 
-·Simles号用于在ADMETlab网站通过爬虫批量获取ADMET数据（Absorption、Distribution、Metabolism、Excretion、Toxicity），详见文件3
+    5. Statistics and Visualization: Use the R programming language to clean the batch ADMET data, perform statistical modeling, and visualize high-dimensional data.
 
-·我使用R语言对得到的ADMET进行了批量的可视化处理，详见文件4。
-
-·Smiles号还用于转化成分子指纹，详见文件5。
-
-·分子指纹计算出tanimoto系数，与胆汁酸家族化学分子进行相似性比较，详见文件6。
-
-所有的代码均由我本人编写，我的老师王超进行了小部分指导修改，感谢他给予的建议和支持。
-
-
+All core code for this project was written independently by me. I would like to thank Professor Wang Chao for his guidance, advice, and support throughout the project.
